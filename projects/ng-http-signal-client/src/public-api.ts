@@ -3,3 +3,4 @@
  */
 
 export * from './lib/http-signal-client.service';
+export * from './lib/http-signal-client.module';

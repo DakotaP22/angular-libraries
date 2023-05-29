@@ -15,17 +15,19 @@ const initialValue = {
   data: null,
 };
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class HttpSignalClient {
   private _http: HttpClient = inject(HttpClient);
 
-  get<T>(url: string) {
+  get<T>(
+    url: string
+  ): Signal<HttpSignalClientReponse<T>> {
     const req$: Observable<HttpSignalClientReponse<T>> = this._http
       .get<T>(url)
       .pipe(
-        map((data: T) => ({ loading: false, error: null, data })),
+        map((data: T) => {
+          return { loading: false, error: null, data };
+        }),
         catchError((error) => of({ loading: false, error, data: null }))
       );
 
